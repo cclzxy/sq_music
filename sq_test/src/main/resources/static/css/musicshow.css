@@ -1,0 +1,269 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    -khtml-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
+.clearfix:after {
+    content: " ";
+    display: block;
+    clear: both;
+}
+
+.box {
+    position: relative;
+    width: 530px;
+    height: 150px;
+    margin: 0 auto;
+}
+
+.main {
+    width: 530px;
+    height: 150px;
+    position: absolute;
+    top: 0px;
+    left: 66%;
+    margin-left: -350px;
+    overflow: hidden;
+}
+
+.item {
+    list-style: none;
+    width: 280px;
+    height: 96px;
+    position: absolute;
+    left: 0px;
+    top: 27px;
+    transition: all 0.3s ease;
+}
+
+.p0 {
+    transform: translate3d(-280px, 0, 0) scale(1);
+    opacity: 0.1;
+    z-index: 1;
+}
+
+.p1 {
+    transform: translate3d(0px, 0, 0) scale(1);
+    opacity: 0.8;
+    z-index: 2;
+}
+
+.p2 {
+    transform: translate3d(280px, 0, 0) scale(1);
+    opacity: 0.8;
+    z-index: 3;
+}
+
+.p3 {
+    transform: translate3d(140px, 0, 0) scale(1.5);
+    opacity: 1;
+    z-index: 4;
+}
+
+.p4 {
+    transform: translate3d(560px, 0, 0) scale(1);
+    opacity: 0.1;
+    z-index: 3;
+}
+
+.newItem {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.changeItem {
+    position: absolute;
+    left: 50%;
+    top: 0px;
+    margin-left: -202px;
+    transform: scale(1.4);
+}
+
+.item img {
+    width: 100%;
+    height: 100%;
+}
+
+.btnMain {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.left {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    margin-top: -15px;
+    z-index: 10;
+}
+
+.right {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    margin-top: -15px;
+    z-index: 10;
+}
+
+.left img,
+.right img {
+    width: 30px;
+    height: 30px;
+}
+
+.pressMain {
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    width: 134px;
+    height: 24px;
+    margin-left: -67px;
+    z-index: 20;
+}
+
+.pressMain span {
+    display: inline-block;
+    margin: 2px 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: #fff;
+    background: pink;
+    text-align: center;
+    line-height: 20px;
+}
+
+.pressMain .active {
+    background: brown;
+}
+/*---------------------------------------------------------三大块div设置*/
+.div-title {
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    margin-top: 20px;
+    border: none;
+}
+
+.div-left {
+    width: 201px;
+    height: 463px;
+    text-align: center;
+    display: inline;
+    float: left;
+    border: none;
+    background-color: #91b8b3;
+    border-radius: 5px;
+}
+
+.div-main {
+    height: 463px;
+    float: left;
+    width: 559px;
+    text-align: center;
+    border: none;
+}
+
+.div-right {
+    height: 463px;
+    width: 201px;
+    text-align: center;
+    display: inline;
+    float: left;
+    border: none;
+    background-color: #91b8b3;
+    border-radius: 5px;
+}
+
+
+/*--------------------------------------------------------排行榜样式*/
+a {
+    color: #525C66;
+    text-decoration: none;
+}
+<!-- div 大小设定 -->
+.top-10 {
+    float: left;
+    width: 201px;
+    margin-top: 106px;
+    background: #fff;
+    border: 1px solid #FFF;
+    box-shadow: #d0d0d0 1px 1px 10px 0px;
+}
+
+.top-10 ul {
+    counter-reset: section;
+}
+
+.top-10 li {
+    float: left;
+    width: 200px;
+    border-bottom: 1px solid #b8c2cc;
+    line-height: 46px;
+    height: 42px;
+    overflow: hidden;
+    color: #525C66;
+    font-size: 14px;
+
+}
+
+.top-10 li:before {
+    counter-increment: section;
+    content: counter(section);
+    display: inline-block;
+    padding: 0 12px;
+    margin-right: 10px;
+    height: 18px;
+    line-height: 18px;
+    background: #b8c2cc;
+    color: #fff;
+    border-radius: 3px;
+    font-size: 9px
+}
+<!-- 排名前三名颜色控制 -->
+
+
+
+
+
+.top-10 li:nth-child(3):before {
+    background: #0164b4;
+}
+.top-10 li:nth-child(1):before {
+    background: #0164b4;
+}
+.top-10 li:nth-child(2):before {
+    background: #0164b4;
+}
+.top-10 li:nth-child(3):before {
+    background: #0164b4;
+}
+#rank-more {
+    float: left;
+    width: 100%;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.span-h7 {
+    font-size: 14px;
+    color: #B8C2CC;
+    font-weight: 300;
+}
+
+.div-h1{
+    font-size: 22px;
+    color: #282E33;
+    letter-spacing: 0;
+    text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135
+}

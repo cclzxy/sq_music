@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" name="viewport" content="width=device-width,user-scalable=no" />
+  <title>音乐</title>
+  <script src="js/vue.js"></script>
+  <link rel="stylesheet" href="css/musicshow.css">
+</head>
+<body style="background:silver">
+
+<div>
+  <div class="div-title">
+    <span class="div-h1" style="font-size: 23px"><strong>朗 读 吧 台</strong></span>
+  </div>
+  <!--  左侧区域-->
+  <div class="div-left" style="margin-left: 10px">
+
+  </div>
+  <!--  左侧区域结束-->
+  <!--  中间区域-->
+  <div class="div-main">
+    <div style="height: 464px; width: 530px;margin: 0 auto;border-radius: 5px">
+      <!--音乐图片-->
+      <div style="height: 198px;width: 530px;margin: 0 auto">
+        <div id="app">
+          <div class="box">
+            <!--<button @click="imgMove">点击</button>-->
+            <div class="main clearfix" @mouseover="btnOpen" @mouseout="btnHide">
+              <div class="minMain">
+                <div class="item" v-for="(item,index) in list" :key="index">
+                  <img :src="item.imgUrl"/>
+                </div>
+              </div>
+              <div class="btnMain" v-show="btnShow">
+                <div class="left" @click="leftClick">
+                  <img src="../static/img/ljiantou.png"/>
+                </div>
+                <div class="right" @click="rightClick">
+                  <img src="../static/img/rjiantou.png"/>
+                </div>
+              </div>
+              <div class="pressMain">
+                <span v-for="(item,index) in pressList" :class="{active:item.isShow}">{{item.name}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--    音乐信息-->
+      <div style="height: 200px;width: 530px;margin: 0 auto">
+        <div style="height: 150px;background-color: #44c767;border-radius: 5px">音乐相关描述</div>
+        <div style="height: 50px;background-color: #c75f3e;border-radius: 5px;margin-top: 5px">标签点评</div>
+      </div>
+      <!--    音乐播放-->
+      <div style="margin-top: 11px">
+        <audio src="music/悲怆第三章.mp3" controlsList="nodownload" controls="controls" id="audio"
+               style="width:530px; max-height:85px "></audio>
+      </div>
+    </div>
+  </div>
+  <!--  中间区域结束-->
+  <!--  右侧区域-->
+  <div class="div-right">
+    <div class="top-10">
+      <p><strong style="font-size: 19px">排行榜</strong></p>
+      <ul>
+        <li style="background-color: #c75f3e"><a>第一名</a></li>
+        <li><a>第二名</a></li>
+        <li><a>第三名</a></li>
+        <li><a>第四名</a></li>
+        <li><a>第五名</a></li>
+        <li><a>第六名</a></li>
+        <li><a>第七名</a></li>
+        <li><a>第八名</a></li>
+        <li><a>第九名</a></li>
+        <li><a>第十名</a></li>
+      </ul>
+    </div>
+  </div>
+  <!--右侧区域结束-->
+</div>
+</body>
+<script src="js/index.js"></script>
+</html>

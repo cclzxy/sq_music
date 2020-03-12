@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>信息录入</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <script src="js/jquery.min.js"></script>
+</head>
+<body>
+<div class="mui-content">
+  <div class="demo-frame">
+    <div class="demo-container">
+      <center><input type="button" title="开启摄像头" value="开启摄像头" onclick="getMedia()" /><button id="snap" onclick="takePhoto()"
+                                                                                              style="margin-left: 20px;">开始拍照</button></center>
+      <br />
+      <video id="video" width="400" height="400" autoplay="autoplay"></video>
+      <canvas id="canvas" width="200" height="150"></canvas>
+      <div class="mui-input-group">
+        <div class="mui-input-row">
+          <label>姓名：</label>
+          <input id="xm" type="text" class="mui-input-clear" placeholder="请输入姓名">
+          <button onclick="check()" style="margin-left: 10px;">查询</button>
+        </div>
+        <div class="mui-input-row">
+          身份证：<input id="cardNo" type="text" class="mui-input-clear" placeholder="请输入身份证">
+        </div>
+        <br /><br />
+        <div class="mui-input-row">
+          <center><button onclick="Submit()">提 交</button></center>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    //获得video摄像头区域
+    let video = document.getElementById("video");
+    // getMedia();
+
+    function getMedia() {
+        let constraints = {
+            video: {
+                width: 800,
+                height: 600
+            },
+            audio: true
+        };
+        let promise = navigator.mediaDevices.getUserMedia(constraints);
+        promise.then(function(MediaStream) {
+            video.srcObject = MediaStream;
+            video.play();
+        }).catch(function(PermissionDeniedError) {
+            console.log(PermissionDeniedError);
+        })
+    }
+
+    function takePhoto() {
+        //获得Canvas对象
+        let canvas = document.getElementById("canvas");
+        let ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, 110, 150);
+        // ctx.drawImage(video, 0, 0, 200, 150);
+    }
+
+    function check() {
+        var xm = document.getElementById("xm").value;
+        var dataJson = "{'xm' : '" + xm + "'}";
+        console.log("dataJson:" + dataJson);
+        $.ajax({
+            url: 'http://192.168.11.60:81/ArcSoftFace.asmx/getEmployee',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json;charset=utf-8',
+            data: dataJson,
+            success: function(data) {
+                var msg = JSON.stringify(data);
+                console.log("data:" + msg);
+                // alert(msg);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log("status:" + XMLHttpRequest.status);
+                console.log("readyState:" + XMLHttpRequest.readyState);
+                console.log("textStatus:" + textStatus);
+            }
+        })
+    }
+
+    function Submit() {
+        var dataJson = "{'base64Str' : '" + img.substr(img.indexOf(',') + 1) + "',}";
+        console.log("dataJson:" + dataJson);
+        $.ajax({
+            url: 'http://192.168.11.60:81/ArcSoftFace.asmx/addFeture',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json;charset=utf-8',
+            data: dataJson,
+            success: function(data) {
+                var msg = JSON.stringify(data);
+                alert(msg[0]);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log("status:" + XMLHttpRequest.status);
+                console.log("readyState:" + XMLHttpRequest.readyState);
+                console.log("textStatus:" + textStatus);
+            }
+        });
+    }
+</script>
+</body>
+</html>

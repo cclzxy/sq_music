@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8"/>
+<link rel="stylesheet" href="css/common.css"/>
+<script src="js/vue.js"></script>
+<script src="js/jquery.min.js"></script>
+<title>朗读吧台</title>
+<body>
+
+<!--导航栏-->
+<div class="top">
+  <ul>
+    <li><a href="javascript:location.reload()">首页</a></li>
+    <li><a href="javascript:addmusic()">添加/隐藏音乐</a></li>
+    <li><a class="dialog" href="javascript:commentsshow()">发布公告</a></li>
+    <li><a href="javascript:showpai()">走进班牌</a></li>
+    <li><a href="javascript:showmsg()">留言统计</a></li>
+  </ul>
+</div>
+<!--导航栏结束-->
+<div id="App">
+  <!-------------------------------------------- 公告弹窗-------------------------------------->
+  <div id="commentsshow" v-show="comalert">
+    <div id="contents">
+      <div>修改公告</div>
+      <div>&nbsp</div>
+      <div><textarea id="txarea" cols="30" rows="8"></textarea></div>
+      <button id="sub_comment" onclick="updcomment()">提交</button>
+    </div>
+  </div>
+  <!-------------------------------------------- 公告弹窗结束-------------------------------------->
+  <!--  点击图片查看-->
+  <div id="imgshow" v-show="imgalert">
+    <img src="" alt="图片" id="show" @click="hideimg">
+  </div>
+  <!--左侧播放器-->
+  <div id="left_box" v-show="main">
+    <!--王冠-->
+    <div id="guan"><img src="img/top10.png"></div>
+    <!--红边框盒子-->
+    <div id="box">
+      <div id="left_title">
+        <div id="bangdan">Top 10 榜单</div>
+        <img id="left_img" src="img/aixin.png">
+      </div>
+      <div id="left_content">
+
+      </div>
+    </div>
+  </div>
+
+  <!--右侧大框-->
+  <div id="right_box" v-show="main">
+    <!--1---------------------------------------------------------------------------->
+    <div class="web-width" v-show="addmusic==1">
+      <!--流程图-->
+      <div class="for-liucheng">
+        <div class="liulist for-cur"></div>
+        <div class="liulist"></div>
+        <div class="liulist"></div>
+        <div class="liulist"></div>
+        <div class="liutextbox">
+          <div class="liutext for-cur"><em>1</em><br/><strong>基本信息</strong></div>
+          <div class="liutext"><em>2</em><br/><strong>选择学校</strong></div>
+          <div class="liutext"><em>3</em><br/><strong>上传文件</strong></div>
+          <div class="liutext"><em>4</em><br/><strong>完成</strong></div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="contenadd">
+          <!--日期-->
+          日期：<input class="in" type="date" name="mudate" id="mudate">
+          <p>&nbsp</p>
+          标题：<input class="in" id="musicname" type="text" placeholder=" 请输入标题"/>
+
+          <!--年级选择-->
+          <p>&nbsp</p>
+          年级：<select class="in" name="author" id="muauthor">
+          <option value="一年级">一年级</option>
+          <option value="二年级">二年级</option>
+          <option value="三年级">三年级</option>
+          <option value="四年级">四年级</option>
+          <option value="五年级">五年级</option>
+          <option value="六年级">六年级</option>
+        </select>
+          <p>&nbsp</p>
+          <!--类型选择-->
+
+          分类：<select class="in" id="musictype">
+          <option value="朗读吧台">朗读吧台</option>
+          <option value="晨读">晨读</option>
+          <option value="十佳歌手">十佳歌手</option>
+          <option value="演讲">演讲</option>
+        </select>
+          <p>&nbsp</p>
+          <!--详细描述-->
+          添加说明：<textarea cols="45" rows="5" id="musicdescribe"></textarea>
+        </div>
+        <div class="subtijiao">
+          <input type="button" @click="to2" value="下一步"/>
+        </div>
+      </div>
+    </div>
+    <!--2---------------------------------------------------------------------------->
+    <div class="web-width" v-show="addmusic==2">
+
+      <div class="for-liucheng">
+        <div class="liulist for-cur"></div>
+        <div class="liulist for-cur"></div>
+        <div class="liulist"></div>
+        <div class="liulist"></div>
+        <div class="liutextbox">
+          <div class="liutext for-cur"><em>1</em><br/><strong>基本信息</strong></div>
+          <div class="liutext for-cur"><em>2</em><br/><strong>选择学校</strong></div>
+          <div class="liutext"><em>3</em><br/><strong>上传文件</strong></div>
+          <div class="liutext"><em>4</em><br/><strong>完成</strong></div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="contenadd">
+          学校：<select class="in">
+          <option value="南京和贤">南京和贤</option>
+          <option value="第三中学">第三中学</option>
+          <option value="实验小学">实验小学</option>
+          <option value="溧水高中">溧水高中</option>
+        </select>
+        </div>
+        <div class="subtijiao">
+          <input type="button" @click="to1" value="上一步"/>
+          <input type="button" @click="to3" value="下一步"/>
+        </div>
+      </div>
+    </div>
+    <!--3---------------------------------------------------------------------------->
+    <div class="web-width" v-show="addmusic==3">
+
+      <div class="for-liucheng">
+        <div class="liulist for-cur"></div>
+        <div class="liulist for-cur"></div>
+        <div class="liulist for-cur"></div>
+        <div class="liulist"></div>
+        <div class="liutextbox">
+          <div class="liutext for-cur"><em>1</em><br/><strong>基本信息</strong></div>
+          <div class="liutext for-cur"><em>2</em><br/><strong>选择学校</strong></div>
+          <div class="liutext for-cur"><em>3</em><br/><strong>上传文件</strong></div>
+          <div class="liutext"><em>4</em><br/><strong>完成</strong></div>
+        </div>
+      </div><!--for-liucheng/-->
+      <div class="content">
+        <div class="contenadd">
+          录音(文件名不可重复):<input id="cert" multiple type="file" name="file" accept="audio/*"/>
+          <p>&nbsp</p>
+          图片:<input type="file" onchange="changeImg(this)" multiple class="upload_pic" name="image" id="imagesrc"
+                    accept="image/*"/>
+          <p>&nbsp</p>
+          <div id="add_imgshow">
+            <img src="img/yulan.png" alt="图片预览" id="inputimg">
+          </div>
+        </div>
+        <div class="subtijiao">
+          <input type="button" @click="to2" value="上一步"/>
+          <input type="button" onclick="intosql()" value="提交"/></div>
+      </div>
+    </div><!--web-width/-->
+    <!--4---------------------------------------------------------------------------->
+    <div class="web-width" v-show="addmusic==4">
+
+      <div class="for-liucheng">
+        <div class="liulist for-cur"></div>
+        <div class="liulist for-cur"></div>
+        <div class="liulist for-cur"></div>
+        <div class="liulist for-cur"></div>
+        <div class="liutextbox">
+          <div class="liutext for-cur"><em>1</em><br/><strong>基本信息</strong></div>
+          <div class="liutext for-cur"><em>2</em><br/><strong>选择学校</strong></div>
+          <div class="liutext for-cur"><em>3</em><br/><strong>上传文件</strong></div>
+          <div class="liutext for-cur"><em>4</em><br/><strong>完成</strong></div>
+        </div>
+      </div><!--for-liucheng/-->
+      <h3>恭喜您，提交成功！页面自动跳转...</h3>
+    </div><!--web-width/-->
+
+    <!--右侧div(显示)------------------------------------------------------>
+    <div id="music_right" v-show="ifaddmusic2">
+      <!--      搜索框-->
+      <div id="inputdiv">
+        <div class="search">
+          <div id="f">
+            <input type="text" placeholder="搜索从这里开始..." id="sousuo">
+            <button onclick="findmusics()"></button>
+          </div>
+        </div>
+      </div>
+      <!--顶部标题+audio-->
+      <div id="music_top">
+        <div id="musictitle">暂无标题</div>
+        <audio id="music" src="" controls autoplay></audio>
+      </div>
+
+      <!--中间部分-->
+      <div id="right_contents">
+        <table id="tb">
+          <tr id="table_title">
+            <td>名称</td>
+            <td>班级年级</td>
+            <td>音频类型</td>
+            <td>创建日期</td>
+            <td>点赞量</td>
+            <td>学校</td>
+            <td>图片</td>
+            <td>详细描述</td>
+            <td>
+              <div><img class="right_img" src="img/cz.png" alt=""></div>
+            </td>
+          </tr>
+          <tr id="table_content" v-for="(i,index) of jsonarray">
+            <td style="color: red">{{i.musicsrc}}</td>
+            <td>{{i.author}}</td>
+            <td>{{i.musictype}}</td>
+            <td>{{i.musicdate}}</td>
+            <td>{{i.musiclike}}次</td>
+            <td>{{i.school}}</td>
+            <td>
+              <button class="selimg" @click="showimg(index)">查看</button>
+            </td>
+            <td id="right_details">
+              <textarea readonly>{{i.musicdescribe}}</textarea>
+            </td>
+            <td>
+              <button id="right_btn2" onclick="onloadmusic(this)" v-if="btnplay">
+                <img id="playimg" class="right_img" src="img/play.png">
+              </button>
+              <button class="selimg2" @click="delmusic(index)">删除</button>
+            </td>
+          </tr>
+        </table>
+        <div id="pagec">
+          <button class="pagechange" onclick="loadmusic(1)">首页</button>
+          <button class="pagechange" onclick="loadmusic(2)">上一页</button>
+          <button class="pagechange" onclick="loadmusic(3)">下一页</button>
+        </div>
+      </div>
+      <!--音乐数据结束-->
+    </div>
+    <!--右侧div(显示)结束-->
+  </div>
+  <!-- --------------------------------------------- 留言统计-------------------------------------->
+  <div id="msgs" v-show="!main">
+    留言统计
+    <table width="90%" class="table">
+      <tr>
+        <th>名称</th>
+        <th>内容</th>
+        <th>时间</th>
+        <th>综合</th>
+        <th>暂无</th>
+        <th>暂无</th>
+        <th>暂无</th>
+        <th>暂无</th>
+        <th>暂无</th>
+      </tr>
+      <tr v-for="(m,index) of msgs" :class="{tb:index%2==0}">
+        <td>{{m.commentid}}</td>
+        <td>{{m.comment}}</td>
+        <td>{{m.comtime}}</td>
+        <td>{{m.comscore}}</td>
+        <td>{{m.coma}}</td>
+        <td>{{m.comb}}</td>
+        <td>{{m.comc}}</td>
+        <td>{{m.comd}}</td>
+        <td>{{m.come}}</td>
+      </tr>
+    </table>
+  </div>
+  <!-- --------------------------------------------- 留言统计结束-------------------------------------->
+</div>
+<a id="uname" th:text="${session.pwd}"></a>
+</body>
+<script src="js/V.js"></script>
+<script src="js/main.js"></script>
+<script src="js/Showif.js"></script>
+</html>
