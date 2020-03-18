@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="App">
+
+  <div class="about">
+    <!----------------------------------------------------------------------->
+    <div class="top" v-for="(a,index) of a">
+      <p style="font-size: 30px" :class="{full:a==4}">{{b[index]}}</p>
+      <span style="color: saddlebrown">{{a}}</span>
+    </div>
+    <!-------------------------------200*600left---------------------------------------->
+    <div class="left">
+<!--      <div v-for="(a,index) of a" class="leftbook">-->
+<!--        <div class="leftcon">-->
+<!--          <span style="color: red">{{4-a}}</span>-->
+<!--          <p style="font-size: 18px">{{b[index]}}</p>-->
+<!--        </div>-->
+<!--        <div class="leftcon">-->
+<!--          <button @click="leftt(index)" v-if="index<=12" class="btnleft">+</button>-->
+<!--          &lt;!&ndash;          <button @click="rightt(index)" v-if="index<=12" class="btnleft">-</button>&ndash;&gt;-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="show1">-->
+<!--        <div class="leftshow">{{left}}</div>-->
+<!--        <div class="leftmust">必有：{{mustl}}</div>-->
+<!--        <button class="confirm" @click="con">确认</button>-->
+<!--      </div>-->
+    </div>
+    <!-------------------------------200*600-------------------------------------->
+    <div class="right">
+<!--      <div v-for="(a,index) of a" class="leftbook">-->
+<!--        <div class="leftcon">-->
+<!--          <span style="color: red">{{4-a}}</span>-->
+<!--          <p style="font-size: 18px">{{b[index]}}</p>-->
+<!--        </div>-->
+<!--        <div class="leftcon">-->
+<!--          <button @click="rightt(index)" v-if="index<=12" class="btnleft">+</button>-->
+<!--          &lt;!&ndash;          <button @click="add(index)" v-if="index<=12" class="btnleft">-</button>&ndash;&gt;-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="show1">-->
+<!--        <div class="leftshow">{{right}}</div>-->
+<!--        <div class="leftmust">必有：{{mustr}}</div>-->
+<!--        <button class="confirm" @click="con2">确认</button>-->
+<!--      </div>-->
+    </div>
+    <!----------------------------------------------------------------------->
+    <div class="me">
+      <div v-for="(a,index) of a" class="mybook">
+        <div class="me_content1">
+          <span style="color: red">{{4-a}}</span>
+          <p style="font-size: 25px">{{b[index]}}</p>
+        </div>
+        <div class="me_content2">
+          <button @click="min(index)" v-if="index<=12" class="btn">+</button>
+          <button @click="add(index)" v-if="index<=12" class="btn">-</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+<script>
+    const app = new Vue({
+        el: "#App",
+        data: {
+            a: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+            b: [3, 4, 5, 6, 7, 8, 9, 10, '11', '12', '13', '14', '15', '16'],
+            left: '',//已出
+            right: '',//
+            mustl: '',//必有
+            mustr: '',
+            ifme: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//判断不是我的书
+            ifme2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//判断不是我的书
+        },
+        methods: {
+            min(index) {
+                if (this.a[index] > 0) {
+                    let newa = this.a[index] - 1;
+                    Vue.set(this.a, index, newa);
+                }
+            },
+            add(index) {
+                if (this.a[index] < 4) {
+                    let newa = this.a[index] + 1;
+                    Vue.set(this.a, index, newa);
+                }
+            },
+            leftt(index) {
+                if (this.a[index] > 0) {         //如果有剩余的数
+                    this.ifme[index]++;
+                    this.left = this.b[index] + ' ' + this.left;
+                    let newa = this.a[index] - 1;
+                    Vue.set(this.a, index, newa);//实时更新渲染数据到页面
+                    if (this.ifme[index] === 3) {
+                        this.mustr = this.mustr + this.b[index] + '++';
+                    } else if (this.ifme[index] === 4) {
+                        this.mustr = this.mustr.substring(0, this.mustr.length - 4)
+                    }
+                }
+            },
+            rightt(index) {
+                if (this.a[index] > 0) {
+                    this.ifme2[index]++;
+                    this.right = this.b[index] + ' ' + this.right;
+                    let newa = this.a[index] - 1;
+                    Vue.set(this.a, index, newa);
+                    if (this.ifme2[index] === 3) {
+                        this.mustl = this.mustl + this.b[index] + '++';
+                    } else if (this.ifme2[index] === 4) {
+                        this.mustl = this.mustl.substring(0, this.mustl.length - 4)
+                    }
+                }
+            },
+            con() {
+                this.left = '+' + this.left;
+            },
+            con2() {
+                this.right = '+' + this.right;
+            }
+        }
+    })
+</script>
+<style>
+  .full {
+    color: red;
+    font-weight: bold;
+    font-size: 40px;
+  }
+
+  .leftshow {
+    height: 40px;
+    width: 80%;
+    float: left;
+    border-radius: 10px;
+  }
+
+  .leftmust {
+    height: 20px;
+    width: 80%;
+    float: left;
+  }
+
+  .btn {
+    height: 40px;
+    width: 80px;
+    background-color: #44c767;
+    border-radius: 5px;
+    border: 1px solid red;
+    outline: none;
+  }
+
+  .btnleft {
+    height: 40px;
+    width: 40px;
+    background-color: darkcyan;
+    border-radius: 25px;
+    border: 1px solid crimson;
+    outline: none;
+  }
+
+  .confirm {
+    height: 50px;
+    width: 100px;
+    float: left;
+    border-radius: 10px;
+    background-color: sandybrown;
+    outline: none;
+    border: 1px solid black;
+    margin-top: -35px;
+  }
+
+  /*最大*/
+  .about {
+    background-color: silver;
+    width: 1200px;
+    height: 600px;
+    margin: 0 auto;
+    border-radius: 10px;
+  }
+
+  /*顶部*/
+  .top {
+    height: 200px;
+    width: 84px;
+    float: left;
+    font-size: 30px;
+    border-radius: 10px 0 0 0;
+    text-align: center;
+  }
+
+  /*左边*/
+  .left {
+    background-color: #91b8b3;
+    height: 200px;
+    width: 600px;
+    float: left;
+    border-radius: 20px;
+  }
+
+  /*右边*/
+  .right {
+    height: 200px;
+    width: 600px;
+    float: left;
+    background-color: #91b8b3;
+    border-radius: 20px;
+  }
+
+  .me {
+    /*background-color: #91b8b3;*/
+    height: 400px;
+    width: 1200px;
+    font-size: 16px;
+    float: left;
+    /*background-color: #44c767;*/
+  }
+
+  .mybook {
+    height: 200px;
+    width: 85px;
+    float: left;
+    color: black;
+    margin-top: 10px;
+  }
+
+  .leftbook {
+    height: 140px;
+    width: 40px;
+    float: left;
+    color: black;
+  }
+
+  .me_content1 {
+    height: 100px;
+    width: 85px;
+    float: left;
+    color: black;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .show1 {
+    height: 60px;
+    width: 100%;
+    background-color: silver;
+    float: left;
+  }
+
+  .me_content2 {
+    height: 50px;
+    width: 85px;
+    float: left;
+    color: black;
+    text-align: center;
+  }
+
+  .leftcon {
+    height: 80px;
+    width: 40px;
+    float: left;
+    color: black;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+  }
+</style>
+</html>

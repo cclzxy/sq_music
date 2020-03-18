@@ -12,38 +12,40 @@ let app = new Vue({
         addmusic: 0,
     },
     methods: {
+        //根据id删除音乐
         delmusic(index) {
             return delone(this.jsonarray[index].musicid);
         },
+        //上传音乐时的图片预览
         showimg(index) {
             this.imgalert = !this.imgalert;
             document.getElementById("show").src = this.jsonarray[index].imagesrc;
         }, hideimg() {
             this.imgalert = false;
-        },to1(){
-            this.addmusic=1;
-        },to2(){
-            this.addmusic=2;
-        },to3(){
-            this.addmusic=3;
-        },to4(){
+            //上传音乐分步骤完成，显示隐藏进度部分页面
+        }, to1() {
+            this.addmusic = 1;
+        }, to2() {
+            this.addmusic = 2;
+        }, to3() {
+            this.addmusic = 3;
+        }, to4() {
+            //上传成功后定时自动跳转首页
             // if (intosql()){
-                 this.addmusic=4;
-                setTimeout(()=> {
-                    location.reload();
-                },2000)
+            this.addmusic = 4;
+            setTimeout(() => {
+                location.reload();
+            }, 2000)
             // }
 
         }
     },
     computed: {}
 });
-
 // 显示隐藏添加音乐div
 function addmusic() {
-    gettime();
-    app.main = true;
-    // app.ifaddmusic = !app.ifaddmusic;//显示隐藏新增音乐
+    gettime();//获取系统时间
+    app.main = true;//隐藏评论页面
     if (app.addmusic >= 1) {
         app.addmusic = 0;
     } else {
@@ -52,7 +54,7 @@ function addmusic() {
     app.ifaddmusic2 = !app.ifaddmusic2;//显示隐藏所有数据页面
 }
 
-//session
+//页面加载时判断是否存在session，不存在则返回登陆界面
 function getses() {
     let n = document.getElementById("uname").innerText;
     if (n === "") {

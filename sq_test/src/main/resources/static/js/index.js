@@ -1,93 +1,152 @@
-var app = new Vue({
-    el: "#app",
-    data() {
-        return {
-            list: [
-                { imgUrl: 'img/banner11.png' },
-                { imgUrl: 'img/banner22.png' },
-                { imgUrl: 'img/banner33.png' },
-                { imgUrl: 'img/banner44.png' },
-                { imgUrl: 'img/banner55.png' }
-            ],
-            pressList: [{ name: '1', isShow: false }, { name: '2', isShow: false }, { name: '3', isShow: false }, { name: '4', isShow: false }, { name: '5', isShow: false }],
-            numList: ['p0', 'p1', 'p2', 'p3', 'p4'],
-            imgIndex: 0,
-            imgTimer: null,
-            btnShow: false
+particlesJS('particles-js',
+  
+  {
+    "particles": {
+      "number": {
+        "value": 80,
+        "density": {
+          "enable": true,
+          "value_area": 800
         }
+      },
+      "color": {
+        "value": "#ffffff"
+      },
+      "shape": {
+        "type": "circle",
+        "stroke": {
+          "width": 0,
+          "color": "#000000"
+        },
+        "polygon": {
+          "nb_sides": 5
+        },
+        "image": {
+          "src": "img/github.svg",
+          "width": 100,
+          "height": 100
+        }
+      },
+      "opacity": {
+        "value": 0.5,
+        "random": false,
+        "anim": {
+          "enable": false,
+          "speed": 1,
+          "opacity_min": 0.1,
+          "sync": false
+        }
+      },
+      "size": {
+        "value": 5,
+        "random": true,
+        "anim": {
+          "enable": false,
+          "speed": 40,
+          "size_min": 0.1,
+          "sync": false
+        }
+      },
+      "line_linked": {
+        "enable": true,
+        "distance": 150,
+        "color": "#ffffff",
+        "opacity": 0.4,
+        "width": 1
+      },
+      "move": {
+        "enable": true,
+        "speed": 6,
+        "direction": "none",
+        "random": false,
+        "straight": false,
+        "out_mode": "out",
+        "attract": {
+          "enable": false,
+          "rotateX": 600,
+          "rotateY": 1200
+        }
+      }
     },
-    mounted: function() {
-        var Item = document.getElementsByClassName('item');
-        for(var i = 0; i < Item.length; i++) {
-            Item[i].className = 'item ' + this.numList[i]
+    "interactivity": {
+      "detect_on": "canvas",
+      "events": {
+        "onhover": {
+          "enable": true,
+          "mode": "repulse"
+        },
+        "onclick": {
+          "enable": true,
+          "mode": "push"
+        },
+        "resize": true
+      },
+      "modes": {
+        "grab": {
+          "distance": 400,
+          "line_linked": {
+            "opacity": 1
+          }
+        },
+        "bubble": {
+          "distance": 400,
+          "size": 40,
+          "duration": 2,
+          "opacity": 8,
+          "speed": 3
+        },
+        "repulse": {
+          "distance": 200
+        },
+        "push": {
+          "particles_nb": 4
+        },
+        "remove": {
+          "particles_nb": 2
         }
-        this.imgMove()
-        this.pressList[0].isShow = true
+      }
     },
-    methods: {
-        imgMove() {
-            var Item = document.getElementsByClassName('item');
-            this.imgTimer = setInterval(() => {
-                this.numList.push(this.numList[0]);
-                this.numList.shift()
-                this.imgIndex++;
-                for(var i = 0; i < Item.length; i++) {
-                    Item[i].className = 'item ' + this.numList[i];
-                }
-                for(var i in this.pressList) {
-                    this.pressList[i].isShow = false
-                }
-                if(this.imgIndex > 4) {
-                    this.imgIndex = 0
-                    this.pressList[this.imgIndex].isShow = true;
-                } else {
-                    this.pressList[this.imgIndex].isShow = true;
-                }
-            }, 4000)
-        },
-        btnOpen() {
-            this.btnShow = true;
-            clearInterval(this.imgTimer)
-        },
-        btnHide() {
-            this.btnShow = false;
-            this.imgMove()
-        },
-        leftClick() {
-            var Item = document.getElementsByClassName('item');
-            this.numList.unshift(this.numList[4]);
-            this.numList.pop()
-            for(var i = 0; i < Item.length; i++) {
-                Item[i].className = 'item ' + this.numList[i];
-            }
-            for(var i in this.pressList) {
-                this.pressList[i].isShow = false
-            }
-            this.imgIndex--
-            if(this.imgIndex < 0) {
-                this.imgIndex = 4
-                this.pressList[this.imgIndex].isShow = true;
-            } else {
-                this.pressList[this.imgIndex].isShow = true;
-            }
-        },
-        rightClick() {
-            var Item = document.getElementsByClassName('item');
-            this.numList.push(this.numList[0]);
-            this.numList.shift()
-            for(var i = 0; i < Item.length; i++) {
-                Item[i].className = 'item ' + this.numList[i];
-            }
-            for(var i in this.pressList) {
-                this.pressList[i].isShow = false
-            }
-            this.imgIndex++
-            if(this.imgIndex > 4) {
-                this.imgIndex = 0
-                this.pressList[this.imgIndex].isShow = true;
-            } else {
-                this.pressList[this.imgIndex].isShow = true;
-            }
-        }
+    "retina_detect": true,
+    "config_demo": {
+      "hide_card": false,
+      "background_color": "#b61924",
+      "background_image": "",
+      "background_position": "50% 50%",
+      "background_repeat": "no-repeat",
+      "background_size": "cover"
     }
-})
+  }
+
+);
+// 表单提交验证
+document.onkeydown = function (evt) {
+  let theEvent = evt || window.event || arguments.callee.caller.arguments[0]; //兼容IE、FF、Google
+  if (theEvent.keyCode === 13) {
+    window.setTimeout(function () {
+      loginin();
+    }, 1); //按下回车后，延迟执行读取数据
+  }
+};
+
+//用户密码验证
+function loginin() {
+  let username = $("#username").val();
+  let pwd = $("#pwd").val();
+  $.ajax({
+    url: "login",
+    type: "post",
+    dataType: "json",
+    data: {"username": username, "pwd": pwd},
+    success: function (d) {
+      if (d.msg !== '') {
+        let listInfo = "<label style=\"color: red\" id=\"innerh\">" + d.msg + "</label>";
+        $("#innerh")[0].innerHTML = listInfo;
+      } else if (d.msg === "") {
+        window.location.href = 'logintest';
+      }
+    },
+    error: function (error) {
+      console.log(error);
+    }
+  })
+}
